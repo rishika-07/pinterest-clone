@@ -1,72 +1,58 @@
 
-import { StyleSheet ,Image ,Text, View ,Pressable} from 'react-native';
-import { EvilIcons } from '@expo/vector-icons';
-import {useState , useEffect } from "react";
-
-
-
-
-
+import { View, Image, Text, StyleSheet, Pressable } from "react-native";
+import { AntDesign } from "@expo/vector-icons";
+import { useState, useEffect } from "react";
+import { useNavigation } from "@react-navigation/native";
+import { useNhostClient } from "@nhost/react";
+import RemoteImage from "./RemoteImage";
 
 const Pin = (props) => {
-const {image, title} = props;
+  const { id, image, title } = props.pin;
 
-const [ratio, setRatio] =useState(1);
+  const navigation = useNavigation();
 
- const onLike =()=>{};
+  const onLike = () => {};
 
- 
+  const goToPinPage = () => {
+    navigation.navigate("Pin", { id });
+  };
 
- useEffect(()=>{
-  if(image){
-  Image.getSize(image,(width,height)=>setRatio(width/height));
- }}
- ,[image]);
+  return (
+    <Pressable onPress={goToPinPage} style={styles.pin}>
+      <View>
+        <RemoteImage fileId={image} />
+        <Pressable onPress={onLike} style={styles.heartBtn}>
+          <AntDesign name="hearto" size={16} color="black" />
+        </Pressable>
+      </View>
 
-    return(
-        
-      <view style={styles.pin}>
-        <View>
-        <Image source={{uri: image,}}style={[styles.image,{aspectRatio: ratio }]}/>
-
-         <Pressable onPress={onLike} style={styles.heartBtn}>
-         <EvilIcons name="heart" size={24} color="black" />
-         </Pressable>
-         </View>
-       
-      
-      
-      <Text style={styles.title} numberOfLines={2}>{title}</Text>
-       </view>
-   
-    );
-}; 
+      <Text style={styles.title} numberOfLines={2}>
+        {title}
+      </Text>
+    </Pressable>
+  );
+};
 
 const styles = StyleSheet.create({
-    
-    
-    pin:{
-      width:"100%",
-      padding :4,
-     },
-     title: {
-      lineHeight:22,
-       fontSize: 16,
-       fontWeight: '600',
-       color:"#181818",
-     },
-     image:{
-      
-       width:"100%",
-       borderRadius: 15,
-     },
-     heartBtn: {
-      backgroundColor: "#D3CFD4",
-      position: 'absolute',
-      right:10,
-      bottom:10,
-      padding:5,
-      borderRadius:50,
-     }
-  });
+  pin: {
+    width: "100%",
+    padding: 4,
+  },
+  title: {
+    fontSize: 16,
+    lineHeight: 22,
+    fontWeight: "600",
+    margin: 5,
+    color: "#181818",
+  },
+  heartBtn: {
+    backgroundColor: "#D3CFD4",
+    position: "absolute",
+    bottom: 10,
+    right: 10,
+    padding: 5,
+    borderRadius: 50,
+  },
+});
+
 export default Pin;
