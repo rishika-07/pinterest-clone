@@ -2,8 +2,9 @@
 import { StyleSheet ,Image ,Text, View ,Pressable} from 'react-native';
 import { EvilIcons } from '@expo/vector-icons';
 import {useState , useEffect } from "react";
-import pins from '../assets/data/pins';
-import { BottomTabBarHeightCallbackContext } from '@react-navigation/bottom-tabs';
+
+
+
 
 
 
@@ -35,7 +36,7 @@ const [ratio, setRatio] =useState(1);
        
       
       
-      <Text style={styles.title}>{title}</Text>
+      <Text style={styles.title} numberOfLines={2}>{title}</Text>
        </view>
    
     );
@@ -49,15 +50,15 @@ const styles = StyleSheet.create({
       padding :4,
      },
      title: {
-      
-       fontSize: 20,
-       fontWeight: 'bold',
-       
+      lineHeight:22,
+       fontSize: 16,
+       fontWeight: '600',
+       color:"#181818",
      },
      image:{
       
        width:"100%",
-       borderRadius: 25,
+       borderRadius: 15,
      },
      heartBtn: {
       backgroundColor: "#D3CFD4",
